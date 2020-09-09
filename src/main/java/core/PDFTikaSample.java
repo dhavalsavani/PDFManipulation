@@ -14,20 +14,19 @@ import org.xml.sax.SAXException;
 public class PDFTikaSample {
 
 	public static void main(String[] args) throws IOException, SAXException, TikaException {
-
-		/*Tika tika = new Tika();
-	    try (InputStream stream = ParsingExample.class.getResourceAsStream("src/main/resources/Intellectual Property.pdf")) {
-	        System.out.println(tika.parseToString(stream));
-	    }*/
-
+		String path = "src/main/resources/test.pdf";
+		extractText(path);
+	}
+	
+	public static void extractText(String path) throws IOException, SAXException, TikaException {
 
 		BodyContentHandler handler = new BodyContentHandler();
 		Metadata metadata = new Metadata();
-		FileInputStream inputstream = new FileInputStream(new File("src\\main\\resources\\Intellectual Property.pdf"));
+		FileInputStream inputstream = new FileInputStream(new File(path));
 		ParseContext pcontext = new ParseContext();
 
 		//parsing the document using PDF parser
-		PDFParser pdfparser = new PDFParser(); 
+		PDFParser pdfparser = new PDFParser();
 		pdfparser.parse(inputstream, handler, metadata,pcontext);
 
 		//getting the content of the document
@@ -41,5 +40,4 @@ public class PDFTikaSample {
 			System.out.println(name+ " : " + metadata.get(name));
 		}
 	}
-
 }
